@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Horas;
 use App\Models\HorasComplementares;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class HorasComplementaresController extends Controller{
     public function todasHoras(){
         $viewData = [];
@@ -13,7 +13,7 @@ class HorasComplementaresController extends Controller{
     }
 
     public function exibir(){
-        
+
     }
     public function cadastrar(){
         return view('horas_complementares.cadastrar');
@@ -28,13 +28,15 @@ class HorasComplementaresController extends Controller{
         ]);
 
         $newHoras = new HorasComplementares;
+        $userId = Auth::user()->getId();
         $newHoras -> setName($request->input("name"));
         $newHoras -> setDataAtividade($request->input('data_atividade'));
         $newHoras -> setCargaHoraria($request->input('carga_horaria'));
         $newHoras -> setCargaHoraria($request->input('carga_horaria'));
         $newHoras -> setArquivo('');
         $newHoras -> setInformacoes($request->input('informacoes'));
-
+        $newHoras -> setUserId($userId);
+        $newHoras -> setIdCategoria('');
         $newHoras -> saveOrFail();
 
         return back();

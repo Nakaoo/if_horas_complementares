@@ -11,13 +11,11 @@ return new class extends Migration
      *
      * @return void
      */
-    // Adicionando mais duas colunas na tabela de usuário
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('prontuario');
-            $table->string('id_curso');
-            $table->string('funcao')->default('aluno');
+        Schema::table('horas_complementares', function (Blueprint $table) {
+            $table->integer('id_aluno');
+            $table->integer('id_categoria');
         });
     }
 

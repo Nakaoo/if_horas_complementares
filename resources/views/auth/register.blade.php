@@ -49,9 +49,9 @@
 
                         {{--Fazer um combobox--}}
                         <div class="row mb-3">
-                            <label for="curso" class="col-md-4 col-form-label text-md-end">{{ __('Turma') }}</label>
+                            <label for="id_curso" class="col-md-4 col-form-label text-md-end">{{ __('Curso') }}</label>
                             <div class="col-md-4">
-                                <select id="curso" name="curso" class="col-md-100">
+                                <select id="id_curso" name="id_curso" class="col-md-100">
                                     <option value="ADS">Análise e desenvolvimento de sistemas</option>
                                     <option value="ENA">Engenharia de Automação</option>
                                     <option value="TEA">Tecnológo em Automação Industrial</option>

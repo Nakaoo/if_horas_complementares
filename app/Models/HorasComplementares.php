@@ -9,22 +9,23 @@ class HorasComplementares extends Model
 {
     /**
      * HORAS COMPLEMENTARES ATTRIBUTES
-     * ATRIBUTOS 
+     * ATRIBUTOS
      * $this->attributes['id'] - int - contém a chave primaria (id)
-     * $this->attributes['name'] - string - contém o nome da atividade 
+     * $this->attributes['name'] - string - contém o nome da atividade
      * $this->attributes['data_atividade'] - date - contém a data que foi realizada o atividade
      * $this->attributes['carga_horaria'] - int - contém a quantidade de horas complementares da atividade
      * $this->attributes['file'] - string - contém o arquivo inserido pelo usuario
      * $this->attributes['informacoes'] - string - contém as informacoes da atividade
-     * $this->attributes['aluno_id'] - int - contém a chave primaria (id)
+     * $this->user - User - contém o usuário associado
      */
 
     protected $fillable = [
         'name',
         'data_atividade',
         'carga_horaria',
-        'file',
-        'informacoes'
+        'arquivo',
+        'informacoes',
+        'user'
     ];
 
     public function getId(){
@@ -93,5 +94,42 @@ class HorasComplementares extends Model
     public function setUpdatedAt($updatedAt)
     {
         $this->attributes['updated_at'] = $updatedAt;
+    }
+
+    // Relacionamento entre o aluno e as horas complementares
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    public function getUserId()
+    {
+        return $this->attributes['id_aluno'];
+    }
+
+    public function setUserId($userId)
+    {
+        $this->attributes['id_aluno'] = $userId;
+    }
+
+    // Relacionamento entre categoria e curso
+    public function getIdCategoria()
+    {
+        return $this->attributes['id_categoria'];
+    }
+
+    public function setIdCategoria($id_categoria)
+    {
+        $this->attributes['id_categoria'] = $id_categoria;
     }
 }

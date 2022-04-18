@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'prontuario',
-        'curso'
+        'id_curso'
     ];
 
     /**
@@ -43,4 +43,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getId(){
+        return $this->attributes['id'];
+    }
+
+    public function setId($id){
+        return $this->attributes['id'] = $id;
+    }
+
+    public function horasComplementares()
+    {
+        return $this->hasMany(HorasComplementares::class);
+    }
+
+    public function getHorasComplementares()
+    {
+        return $this->horas;
+    }
+
+    public function setHorasComplementares($orders)
+    {
+        $this->orders = $orders;
+    }
 }
