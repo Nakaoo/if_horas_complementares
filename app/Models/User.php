@@ -12,11 +12,19 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
+     /**
+     * USER ATTRIBUTES
+     * $this->attributes['id'] - int - contém a chave primária (id)
+     * $this->attributes['name'] - string - contém o nome do usuário
+     * 
+    */
+
+      /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
         'name',
         'email',
@@ -52,6 +60,73 @@ class User extends Authenticatable
         return $this->attributes['id'] = $id;
     }
 
+    public function getName(){
+        return $this->attributes['name'];
+    }
+
+    public function setName($name){
+        return $this->attributes['name'] = $name;
+    }
+
+    public function getPassword(){
+        return $this->attributes['password'];
+    }
+
+    private function setPassword($password){
+        return $this->attributes['password'] = $password;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->attributes['created_at'] = $createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->attributes['updated_at'] = $updatedAt;
+    }
+
+    public function getProntuario()
+    {
+        return $this->attributes['prontuario'];
+    }
+
+    public function setProntuario($prontuario)
+    {
+        $this->attributes['prontuario'] = $prontuario;
+    }
+
+    public function getCurso()
+    {
+        return $this->attributes['id_curso'];
+    }
+
+    public function setCurso($id_curso)
+    {
+        $this->attributes['id_curso'] = $id_curso;
+    }
+
+    public function getFuncao()
+    {
+        return $this->attributes['funcao'];
+    }
+
+    public function setFuncao($funcao)
+    {
+        $this->attributes['funcao'] = $funcao;
+    }
+
+    // Relacionamento entre horas complementares e usuário
     public function horasComplementares()
     {
         return $this->hasMany(HorasComplementares::class);
@@ -62,8 +137,8 @@ class User extends Authenticatable
         return $this->horas;
     }
 
-    public function setHorasComplementares($orders)
+    public function setHorasComplementares($horas)
     {
-        $this->orders = $orders;
+        $this->horas = $horas;
     }
 }
