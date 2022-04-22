@@ -4,7 +4,8 @@ namespace App\Models;
 
 use App\Traits\HasClassicSetter;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 class HorasComplementares extends Model
 {
     /**
@@ -94,6 +95,13 @@ class HorasComplementares extends Model
     public function setUpdatedAt($updatedAt)
     {
         $this->attributes['updated_at'] = $updatedAt;
+    }
+
+    // Função para arquivar as imagens
+    public function store(Request $request) {
+
+        $nomeArquivo = $request->file->getClientOriginalName();
+        $extensaoArquivo = $request->file->getClientOriginalExtension();
     }
 
     // Relacionamento entre o aluno e as horas complementares

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<form method="POST" action="{{route ('horas_complementares.cadastrarPost')}}">
+<form method="POST" action="{{route ('horas_complementares.cadastrarPost')}}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="name">Atividade</label>
@@ -16,8 +16,14 @@
         <input name="carga_horaria" type="number" step=".01" class="form-control" id="carga_horaria" placeholder="Insira a quantidade de horas">
     </div>
     <div class="form-group">
+        <label for="categoria">Categoria da atividade</label>
+       <select class="form-control" name="id_categoria">
+
+       </select>
+    </div>
+    <div class="form-group">
         <label for="file">Arquivo</label>
-        <input name="file" type="file" class="form-control" id="arquivo">
+        <input name="arquivo" type="file" class="form-control" id="arquivo">
     </div>
     <div class="form-group">
         <label for="informacoes">Informações</label><br/>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Horas;
 use App\Models\HorasComplementares;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 class HorasComplementaresController extends Controller{
     public function todasHoras(){
@@ -32,8 +33,15 @@ class HorasComplementaresController extends Controller{
         $newHoras -> setName($request->input("name"));
         $newHoras -> setDataAtividade($request->input('data_atividade'));
         $newHoras -> setCargaHoraria($request->input('carga_horaria'));
-        $newHoras -> setCargaHoraria($request->input('carga_horaria'));
-        $newHoras -> setArquivo('');
+        if($request->hasFile('arquivo')){
+            $nomeOriginal = $request->file('arquivo')->getClientOriginalName();
+            $nomeArquivo = $nomeOriginal.".".$request->file('arquivo')->extension();
+            Storage::disk('public')->put(
+                $nomeArquivo,
+                file_get_contents($request->file('arquivo')->getRealPath())
+            );
+            $newHoras -> setArquivo($nomeArquivo);
+        }
         $newHoras -> setInformacoes($request->input('informacoes'));
         $newHoras -> setUserId($userId);
         $newHoras -> setIdCategoria('');
