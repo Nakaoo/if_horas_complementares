@@ -10,8 +10,14 @@
     <h5 class="card-title">{{$hora->getName()}}</h5>
     <p class="card-text">{{$hora->getInformacoes()}}</p>
     <p class="card-text">Status: </p>
-    <a href="#" class="btn btn-primary">Editar</a>
-    <a href="#" class="btn btn-primary">Deletar</a>
+    <a href="{{ route('horas_complementares.editar', ['id'=>$hora->getId()]) }}" class="btn btn-primary">Editar</a>
+    <form action="{{ route('horas_complementares.deletar', $hora->getId())}}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button class="btn btn-danger">
+            Deletar
+        </button>
+     </form>
   </div>
 </div>
 @endforeach -->

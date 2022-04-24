@@ -14,9 +14,6 @@ class HorasComplementaresController extends Controller{
         return view('horas_complementares.todas')->with("viewData", $viewData);
     }
 
-    public function exibir(){
-
-    }
     public function cadastrar(){
         $viewData = [];
         $viewData["categorias"] = Categoria::all();
@@ -50,6 +47,39 @@ class HorasComplementaresController extends Controller{
         $newHoras -> setIdCategoria($request->input('id_categoria'));
         $newHoras -> saveOrFail();
 
+        return back();
+    }
+
+    public function editar($id){
+        $viewdata = [];
+        $viewData["categorias"] = Categoria::all();
+        $viewData["hora"] = HorasComplementares::findOrFail($id);
+        return view('horas_complementares.editar')->with("viewData", $viewData);
+    }
+
+    public function editarPut(Request $request, $id){
+        $hora = HorasComplementares::findOrFail($id);
+        $hora -> setName($request->input("name"));
+        $hora -> setDataAtividade($request->input('data_atividade'));
+        $hora -> setCargaHoraria($request->input('carga_horaria'));
+        if($request->hasFile('arquivo')){
+            $nomeArquivo = $newHoras->getName().".".$request->file('arquivo')->extension();
+            Storage::disk('public')->put(
+                $nomeArquivo,
+                file_get_contents($request->file('arquivo')->getRealPath())
+            );
+            $newHoras -> setArquivo($nomeArquivo);
+        }
+        $hora -> setInformacoes($request->input('informacoes'));
+        $hora -> setIdCategoria($request->input('id_categoria'));
+        $hora -> save();
+
+        return back();
+    }
+
+    public function deletar($id)
+    {
+        HorasComplementares::destroy($id);
         return back();
     }
 }
