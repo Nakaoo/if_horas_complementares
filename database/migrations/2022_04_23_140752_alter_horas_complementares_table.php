@@ -7,15 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Migração para relacionamentos
      *
      * @return void
      */
     public function up()
     {
         Schema::table('horas_complementares', function (Blueprint $table) {
-            $table->integer('id_aluno');
-            $table->integer('id_categoria');
+            $table->unsignedBigInteger('id_aluno');
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_aluno')->references('id')->on('users');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
         });
     }
 

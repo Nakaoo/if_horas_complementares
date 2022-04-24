@@ -3,13 +3,14 @@ namespace App\Http\Controllers\Horas;
 
 use App\Models\HorasComplementares;
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 class HorasComplementaresController extends Controller{
     public function todasHoras(){
         $viewData = [];
-        $viewData["horas"] = HorasComplementares::all();
+        $viewData["horas"] = HorasComplementares::where('id_aluno', Auth::user()->getId())->get();
         return view('horas_complementares.todas')->with("viewData", $viewData);
     }
 
@@ -17,7 +18,9 @@ class HorasComplementaresController extends Controller{
 
     }
     public function cadastrar(){
-        return view('horas_complementares.cadastrar');
+        $viewData = [];
+        $viewData["categorias"] = Categoria::all();
+        return view('horas_complementares.cadastrar')->with("viewData", $viewData);
     }
 
     public function cadastrarPost(Request $request){
@@ -25,6 +28,7 @@ class HorasComplementaresController extends Controller{
             "name" => "required|max:100",
             "data_atividade" => "required",
             "carga_horaria" => "required",
+            "arquivo" => "required",
             "informacoes" => ""
         ]);
 
@@ -34,8 +38,7 @@ class HorasComplementaresController extends Controller{
         $newHoras -> setDataAtividade($request->input('data_atividade'));
         $newHoras -> setCargaHoraria($request->input('carga_horaria'));
         if($request->hasFile('arquivo')){
-            $nomeOriginal = $request->file('arquivo')->getClientOriginalName();
-            $nomeArquivo = $nomeOriginal.".".$request->file('arquivo')->extension();
+            $nomeArquivo = $newHoras->getName().".".$request->file('arquivo')->extension();
             Storage::disk('public')->put(
                 $nomeArquivo,
                 file_get_contents($request->file('arquivo')->getRealPath())
@@ -44,7 +47,7 @@ class HorasComplementaresController extends Controller{
         }
         $newHoras -> setInformacoes($request->input('informacoes'));
         $newHoras -> setUserId($userId);
-        $newHoras -> setIdCategoria('');
+        $newHoras -> setIdCategoria($request->input('id_categoria'));
         $newHoras -> saveOrFail();
 
         return back();

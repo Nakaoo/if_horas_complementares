@@ -18,7 +18,9 @@
     <div class="form-group">
         <label for="categoria">Categoria da atividade</label>
        <select class="form-control" name="id_categoria">
-
+           @foreach ($viewData["categorias"] as $categoria)
+           <option value="{{$categoria -> getId()}}">{{$categoria -> getName()}}</option>
+           @endforeach
        </select>
     </div>
     <div class="form-group">

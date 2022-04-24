@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class HorasComplementares extends Model
 {
     /**
-     * HORAS COMPLEMENTARES ATTRIBUTES
+     * HORAS COMPLEMENTARES ATRIBUTOS
      * ATRIBUTOS
      * $this->attributes['id'] - int - contém a chave primaria (id)
      * $this->attributes['name'] - string - contém o nome da atividade
@@ -97,13 +97,6 @@ class HorasComplementares extends Model
         $this->attributes['updated_at'] = $updatedAt;
     }
 
-    // Função para arquivar as imagens
-    public function store(Request $request) {
-
-        $nomeArquivo = $request->file->getClientOriginalName();
-        $extensaoArquivo = $request->file->getClientOriginalExtension();
-    }
-
     // Relacionamento entre o aluno e as horas complementares
     public function user()
     {
@@ -130,7 +123,12 @@ class HorasComplementares extends Model
         $this->attributes['id_aluno'] = $userId;
     }
 
-    // Relacionamento entre categoria e curso
+    // Relacionamento entre categoria e horas complementares
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
+
     public function getIdCategoria()
     {
         return $this->attributes['id_categoria'];
