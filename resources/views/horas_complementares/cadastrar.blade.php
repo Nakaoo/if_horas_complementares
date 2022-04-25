@@ -1,37 +1,77 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 @section('content')
+<main>
+    <main id="main" class="main">
 
-<form method="POST" action="{{route ('horas_complementares.cadastrarPost')}}" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label for="name">Atividade</label>
-        <input name="name" type="text" class="form-control" aria-describedby="name" placeholder="Entre com a sua atividade">
-    </div>
-    <div class="form-group">
-        <label for="data_atividade">Data da atividade</label>
-        <input name="data_atividade" type="date" min="01-01-1999" max="31-12-2099" placeholder="dd-mm-yyyy" class="form-control" id="data_atividade">
-    </div>
-    <div class="form-group">
-        <label for="carga_horaria">Carga Horaria</label>
-        <input name="carga_horaria" type="number" step=".01" class="form-control" id="carga_horaria" placeholder="Insira a quantidade de horas">
-    </div>
-    <div class="form-group">
-        <label for="categoria">Categoria da atividade</label>
-       <select class="form-control" name="id_categoria">
-           @foreach ($viewData["categorias"] as $categoria)
-           <option value="{{$categoria -> getId()}}">{{$categoria -> getName()}}</option>
-           @endforeach
-       </select>
-    </div>
-    <div class="form-group">
-        <label for="file">Arquivo</label>
-        <input name="arquivo" type="file" class="form-control" id="arquivo">
-    </div>
-    <div class="form-group">
-        <label for="informacoes">Informações</label><br/>
-        <textarea id="informacoes" name="informacoes" rows="4" cols="50">
-        </textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <div class="pagetitle">
+          <h1>Cadastrar horas</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{ route('horas_complementares.dashboard') }}">Home</a></li>
+              <li class="breadcrumb-item">Cadastrar horas</li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="section">
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Insira as informações</h5>
+
+                  <form method="POST" action="{{route ('horas_complementares.cadastrarPost')}}" enctype="multipart/form-data">
+                   @csrf
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-2 col-form-label">Atividade</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="name" class="form-control" placeholder="Entre com a sua atividade"/>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputDate" class="col-sm-2 col-form-label">Data da atividade</label>
+                      <div class="col-sm-10">
+                        <input type="date" name="data_atividade" placeholder="dd-mm-yyyy" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputTime" class="col-sm-2 col-form-label">Carga Horaria</label>
+                      <div class="col-sm-10">
+                        <input type="number" name="carga_horaria" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="categoria" class="col-sm-2 col-form-label">Categoria da atividade</label>
+                      <div class="col-sm-10">
+                        <select class="form-select" name="id_categoria">
+                            @foreach ($viewData["categorias"] as $categoria)
+                            <option value="{{$categoria -> getId()}}">{{$categoria -> getName()}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="informacoes" class="col-sm-2 col-form-label">Descrição da Atividade</label>
+                      <div class="col-sm-10">
+                        <textarea name="informacoes" class="form-control" style="height: 100px"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="inputNumber" class="col-sm-2 col-form-label">Arquivo</label>
+                      <div class="col-sm-10">
+                        <input name="arquivo" class="form-control" type="file" id="formFile">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Enviar</label>
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success">Enviar atividade</button>
+                      </div>
+                    </div>
+                  </form>
+                   </div>
 @endsection

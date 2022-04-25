@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('horas_complementares', function (Blueprint $table) {
+            $table->boolean('avaliacao');
             $table->unsignedBigInteger('id_aluno');
             $table->unsignedBigInteger('id_categoria');
             $table->foreign('id_aluno')->references('id')->on('users');

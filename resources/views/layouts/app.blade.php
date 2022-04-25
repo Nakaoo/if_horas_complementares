@@ -1,53 +1,90 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-br">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-  <link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
-  <title>@yield('title', 'Horas Complementares')</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@yield('title', 'IFSP Horas Complementares')</title>
+
+    <!-- Icon -->
+    <link href="{{ asset('/img/if.png') }}" rel="icon">
+
+    <!-- Fonte -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS Arquivos -->
+    <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+
+    <!-- CSS  -->
+    <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
-  <!-- header -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4">
-    <div class="container">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        </div>
-        @guest
-        <a class="nav-link active" href="{{ route('login') }}">Login</a>
-        <a class="nav-link active" href="{{ route('register') }}">Register</a>
-        @else
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link active" href="{{ route('horas_complementares.cadastrar') }}" )>Cadastrar horas</a>
-          <a class="nav-link active" href="{{ route('horas_complementares.todasHoras') }}">Ver horas</a>
-        <form id="logout" action="{{ route('logout') }}" method="POST">
-          <a role="button" class="nav-link active" onclick="document.getElementById('logout').submit();">Logout</a>
-          @csrf
-        </form>
-        @endguest
-        <div class="vr bg-white mx-2 d-none d-lg-block"></div>
-      </div>
-    </div>
-  </nav>
 
-  <header class="masthead bg-primary text-white text-center py-4">
-    <div class="container d-flex align-items-center flex-column">
-      <h2>@yield('subtitle', 'IF Horas Complementares')</h2>
+  <!-- ======= Header ======= -->
+  <header id="header2" class="header2 fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="{{ route('horas_complementares.dashboard') }}" class="logo d-flex align-items-center">
+        <img src="assets/img/if2.png" alt="">
+        <span class="d-none d-lg-block">Horas complementares</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
+
+    <nav class="header2-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+          </a><!-- Perfil -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li>
+                <form id="logout" action="{{ route('logout') }}" method="POST">
+                    <a role="button" class="nav-link active" onclick="document.getElementById('logout').submit();"><span>Sair</span></a>
+                    @csrf
+                  </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
   </header>
-  <!-- header -->
 
-  <div class="container my-4">
-    @yield('content')
-  </div>
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-  </script>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link " href="{{ route('horas_complementares.dashboard') }}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('horas_complementares.cadastrar') }}">
+          <i class="bi bi-card-list"></i>
+          <span>Cadastrar horas</span>
+        </a>
+      </li>
+    </ul>
+
+  </aside>
+
+  @yield('content');
+
+</main>
+
+  <!-- Vendor JS Files -->
+
+  <script script src="{{ asset('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('/tinymce/tinymce.min.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ asset('js/main.js') }}"></script>
+
 </body>
-
 </html>

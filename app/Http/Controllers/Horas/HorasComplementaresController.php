@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 class HorasComplementaresController extends Controller{
-    public function todasHoras(){
+    public function dashboard(){
         $viewData = [];
         $viewData["horas"] = HorasComplementares::where('id_aluno', Auth::user()->getId())->get();
-        return view('horas_complementares.todas')->with("viewData", $viewData);
+        return view('horas_complementares.dashboard')->with("viewData", $viewData);
     }
 
     public function cadastrar(){
@@ -63,16 +63,16 @@ class HorasComplementaresController extends Controller{
         $hora -> setDataAtividade($request->input('data_atividade'));
         $hora -> setCargaHoraria($request->input('carga_horaria'));
         if($request->hasFile('arquivo')){
-            $nomeArquivo = $newHoras->getName().".".$request->file('arquivo')->extension();
+            $nomeArquivo = $hora->getName().".".$request->file('arquivo')->extension();
             Storage::disk('public')->put(
                 $nomeArquivo,
                 file_get_contents($request->file('arquivo')->getRealPath())
             );
-            $newHoras -> setArquivo($nomeArquivo);
+            $hora -> setArquivo($nomeArquivo);
         }
         $hora -> setInformacoes($request->input('informacoes'));
         $hora -> setIdCategoria($request->input('id_categoria'));
-        $hora -> save();
+        $hora -> saveOrFail();
 
         return back();
     }
