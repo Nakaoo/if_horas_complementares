@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         if(!Auth::user())
-            return view('home');
+            return view('home.index');
         else
             return redirect()->route('horas_complementares.dashboard');
     }
