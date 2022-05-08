@@ -8,7 +8,7 @@
         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
           <div class="d-flex justify-content-center py-4">
             <a href="index.html" class="logo2 d-flex align-items-center w-auto">
-              <img src="assets/img/if.png" alt="">
+              <img src="{{ asset('/img/if.png') }}" alt="">
               <span class="d-none d-lg-block">IFSP</span>
             </a>
           </div>

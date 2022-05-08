@@ -14,9 +14,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Bootstrap CSS Arquivos -->
-    <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- CSS  -->
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 </head>
@@ -27,7 +27,7 @@
   <header id="header2" class="header2 fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ route('horas_complementares.dashboard') }}" class="logo d-flex align-items-center">
-        <img src="assets/img/if2.png" alt="">
+        <img src="{{ asset('/img/if2.png') }}" alt="">
         <span class="d-none d-lg-block">Horas complementares</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -80,8 +80,9 @@
 
   <!-- Vendor JS Files -->
 
-  <script script src="{{ asset('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('/tinymce/tinymce.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.1.1/tinymce.min.js" integrity="sha512-CKoBC+Fujntth+ZnjyUY7X5KLPNNyMH9Ynh7YURnI6shOTkNkOO/CnmDGEHZtXcyTQtJSqRk7wp9WvnQ1HLtwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Template Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
