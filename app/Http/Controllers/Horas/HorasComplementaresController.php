@@ -29,23 +29,10 @@ class HorasComplementaresController extends Controller{
             "informacoes" => ""
         ]);
 
-        $newHoras = new HorasComplementares;
-        $userId = Auth::user()->getId();
-        $newHoras -> setName($request->input("name"));
-        $newHoras -> setDataAtividade($request->input('data_atividade'));
-        $newHoras -> setCargaHoraria($request->input('carga_horaria'));
-        if($request->hasFile('arquivo')){
-            $nomeArquivo = $newHoras->getName().".".$request->file('arquivo')->extension();
-            Storage::disk('public')->put(
-                $nomeArquivo,
-                file_get_contents($request->file('arquivo')->getRealPath())
-            );
-            $newHoras -> setArquivo($nomeArquivo);
-        }
-        $newHoras -> setInformacoes($request->input('informacoes'));
-        $newHoras -> setUserId($userId);
-        $newHoras -> setIdCategoria($request->input('id_categoria'));
-        $newHoras -> saveOrFail();
+        $newHoras = $request->only(['name', 'data_atividade', 'carga_horaria', 'informacoes', 'id_categoria']);
+        $newHoras['arquivo'] = '1';
+        $newHoras['id_aluno'] = Auth::user()->getId();
+        HorasComplementares::create($newHoras);
 
         return back();
     }

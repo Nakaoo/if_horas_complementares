@@ -26,7 +26,8 @@ class HorasComplementares extends Model
         'carga_horaria',
         'arquivo',
         'informacoes',
-        'user'
+        'id_aluno',
+        'id_categoria'
     ];
 
     public function getId(){
