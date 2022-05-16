@@ -21,16 +21,12 @@ class HorasComplementaresController extends Controller{
     }
 
     public function cadastrarPost(Request $request){
-        $request->validate([
-            "name" => "required|max:100",
-            "data_atividade" => "required",
-            "carga_horaria" => "required",
-            "arquivo" => "required",
-            "informacoes" => ""
-        ]);
+
+        HorasComplementares::validate($request);
 
         $newHoras = $request->only(['name', 'data_atividade', 'carga_horaria', 'informacoes', 'id_categoria']);
-        $newHoras['arquivo'] = '1';
+        if($request->hasFile('arquivo'))
+            $newHoras['arquivo'] = $this->arquivo($request, $newHoras, $id);
         $newHoras['id_aluno'] = Auth::user()->getId();
         HorasComplementares::create($newHoras);
 
@@ -45,29 +41,32 @@ class HorasComplementaresController extends Controller{
     }
 
     public function editarPut(Request $request, $id){
-        $hora = HorasComplementares::findOrFail($id);
-        $hora -> setName($request->input("name"));
-        $hora -> setDataAtividade($request->input('data_atividade'));
-        $hora -> setCargaHoraria($request->input('carga_horaria'));
-        if($request->hasFile('arquivo')){
-            $nomeArquivo = $hora->getName().".".$request->file('arquivo')->extension();
+        HorasComplementares::validate($request);
+
+        $hora = $request->only(['name', 'data_atividade', 'carga_horaria', 'informacoes', 'id_categoria']);
+
+        if($request->hasFile('arquivo'))
+            $hora['arquivo'] = $this->arquivo($request, $hora, $id);
+
+        HorasComplementares::where('id', $id)->update($hora);
+
+        return back();
+    }
+
+    public function deletar($id){
+        HorasComplementares::destroy($id);
+        return back();
+    }
+
+    public function arquivo(Request $request, $hora, $id){
+            $nomeArquivo = $hora['name'].".".$request->file('arquivo')->extension();
+
             Storage::disk('public')->put(
                 $nomeArquivo,
                 file_get_contents($request->file('arquivo')->getRealPath())
             );
-            $hora -> setArquivo($nomeArquivo);
-        }
-        $hora -> setInformacoes($request->input('informacoes'));
-        $hora -> setIdCategoria($request->input('id_categoria'));
-        $hora -> saveOrFail();
-
-        return back();
-    }
-
-    public function deletar($id)
-    {
-        HorasComplementares::destroy($id);
-        return back();
+            return $nomeArquivo;
     }
 }
+
 ?>

@@ -6,6 +6,7 @@ use App\Traits\HasClassicSetter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 class HorasComplementares extends Model
 {
     /**
@@ -29,6 +30,17 @@ class HorasComplementares extends Model
         'id_aluno',
         'id_categoria'
     ];
+
+    public static function validate($request)
+    {
+        $request->validate([
+            "name" => "required|max:100",
+            "data_atividade" => "required",
+            "carga_horaria" => "required",
+            "arquivo" => "required",
+            'image' => 'image',
+        ]);
+    }
 
     public function getId(){
         return $this->attributes['id'];
