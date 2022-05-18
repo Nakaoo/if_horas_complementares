@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Horas;
 use App\Models\HorasComplementares;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+
 class HorasComplementaresController extends Controller{
     public function dashboard(){
         $viewData = [];
-        $viewData["horas"] = HorasComplementares::where('id_aluno', Auth::user()->getId())->get();
+        $idAluno = Auth::user()->getId();
+        $viewData["horas"] = HorasComplementares::where('id_aluno', $idAluno);
+        $viewData["contagem"] = HorasComplementares::where('id_aluno', $idAluno)->count();
+        $viewData["horasNecessarias"] = User::where('users.id', $idAluno)->join('curso', 'users.id_curso', '=', 'curso.id')
+                                        ->value('carga_prevista');
+        $viewData["carga_cumprida"] = User::where('id', $idAluno)->value('carga_cumprida');
         return view('horas_complementares.dashboard')->with("viewData", $viewData);
     }
 

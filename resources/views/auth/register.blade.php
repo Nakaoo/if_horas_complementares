@@ -52,9 +52,10 @@
                     <div class="col-12">
                       <label for="id_curso" class="form-label">Curso</label>
                         <select class="form-select" aria-label="Default select example" id="id_curso" name="id_curso">
-                          <option value="ADS">Análise e desenvolvimento de sistemas</option>
-                          <option value="ENA">Engenharia de Automação</option>
-                          <option value="TEA">Tecnológo em Automação Industrial</option>
+                          <option value="1">Análise e desenvolvimento de sistemas</option>
+                          <option value="2">Engenharia de Automação</option>
+                          <option value="3">Tecnológo em Automação Industrial</option>
+                          <option value="4">Licenciatura em matemática</option>
                         </select>
                     </div>
 

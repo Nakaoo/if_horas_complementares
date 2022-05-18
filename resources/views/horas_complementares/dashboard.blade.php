@@ -19,12 +19,13 @@
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
                 <div class="card-body">
-                  <h5 class="card-title">Carga Horária prevista:<span></h5>
+                  <h5 class="card-title">Carga horária necessária:<span></h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-info-circle text-primary"></i>
                     </div>
                     <div class="ps-3">
+                        {{$viewData['horasNecessarias']}}
                     </div>
                   </div>
                 </div>
@@ -40,6 +41,7 @@
                       <i class="bi bi-check-circle text-success"></i>
                     </div>
                     <div class="ps-3">
+                        {{$viewData['carga_cumprida']}}
                     </div>
                   </div>
                 </div>
@@ -55,7 +57,7 @@
                        <i class="bi bi-exclamation-circle text-warning"></i>
                     </div>
                     <div class="ps-3">
-                      <h6></h6>
+                      <h6>{{$viewData['contagem']}}</h6>
                     </div>
                   </div>
                 </div>
@@ -108,7 +110,7 @@
                 <div class="activity-item d-flex">
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                   <div class="activity-content">
-                    <a href="#" class="fw-bold text-dark">Atividade 1</a> Aprovada
+
                   </div>
                 </div>
                 </div>
