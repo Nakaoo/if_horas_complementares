@@ -34,14 +34,14 @@ return new class extends Migration
         });
 
         Schema::table('horas_complementares', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_avaliacao');
+            $table->unsignedBigInteger('id_avaliacao')->nullable();
             $table->foreign('id_avaliacao')->references('id')->on('avaliacao');
         });
 
         DB::table('status')->insert([
-            ['name' => 'Pendente'],
-            ['name' => 'Aprovado'],
-            ['name' => 'Rejeitado'],
+            ['nome' => 'Pendente'],
+            ['nome' => 'Aprovado'],
+            ['nome' => 'Rejeitado'],
         ]);
     }
 

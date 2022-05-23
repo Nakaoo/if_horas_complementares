@@ -126,6 +126,17 @@ class User extends Authenticatable
         $this->attributes['funcao'] = $funcao;
     }
 
+    public function getCargaCumprida()
+    {
+        return $this->attributes['carga_cumprida'];
+    }
+
+    public function setCargaCumprida($carga_cumprida)
+    {
+        $this->attributes['carga_cumprida'] += $carga_cumprida;
+    }
+
+
     // Relacionamento entre horas complementares e usuário
     public function horasComplementares()
     {

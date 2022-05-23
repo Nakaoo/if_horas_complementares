@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class HorasComplementares extends Model
 {
+    use HasClassicSetter;
     /**
      * HORAS COMPLEMENTARES ATRIBUTOS
      * ATRIBUTOS
@@ -19,6 +20,8 @@ class HorasComplementares extends Model
      * $this->attributes['file'] - string - contém o arquivo inserido pelo usuario
      * $this->attributes['informacoes'] - string - contém as informacoes da atividade
      * $this->user - User - contém o usuário associado
+     * $this->categoria - Categoria - contém a categoria associada
+     * $this->avaliacao - Avaliacao - contém as informações sobre a avaliação
      */
 
     protected $fillable = [
@@ -34,11 +37,6 @@ class HorasComplementares extends Model
     public static function validate($request)
     {
         $request->validate([
-            "name" => "required|max:100",
-            "data_atividade" => "required",
-            "carga_horaria" => "required",
-            "arquivo" => "required",
-            'image' => 'image',
         ]);
     }
 
@@ -90,6 +88,14 @@ class HorasComplementares extends Model
         return $this->attributes['informacoes'] = $informacoes;
     }
 
+    public function getCargaCumprida(){
+        return $this->attributes['carga_cumprida'];
+    }
+
+    public function setCargaCumprida($carga_cumprida){
+        return $this->attributes['carga_cumprida'] = $carga_cumprida;
+    }
+
     public function getCreatedAt()
     {
         return $this->attributes['created_at'];
@@ -136,6 +142,11 @@ class HorasComplementares extends Model
         $this->attributes['id_aluno'] = $userId;
     }
 
+    public function getProntuario()
+    {
+        return $this->attributes['prontuario'];
+    }
+
     // Relacionamento entre categoria e horas complementares
     public function categoria()
     {
@@ -150,5 +161,21 @@ class HorasComplementares extends Model
     public function setIdCategoria($id_categoria)
     {
         $this->attributes['id_categoria'] = $id_categoria;
+    }
+
+    // Relacionamento entre avaliacao e horas complementares
+    public function avaliacao()
+    {
+        return $this->belongsTo(Avaliacao::class);
+    }
+
+    public function getIdAvaliacao()
+    {
+        return $this->attributes['id_avaliacao'];
+    }
+
+    public function setIdAvaliacao($id_avaliacao)
+    {
+        $this->attributes['id_avaliacao'] = $id_avaliacao;
     }
 }

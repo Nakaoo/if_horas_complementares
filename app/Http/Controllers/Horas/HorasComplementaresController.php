@@ -5,6 +5,7 @@ use App\Models\HorasComplementares;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\User;
+use App\Models\Avaliacoes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class HorasComplementaresController extends Controller{
     public function dashboard(){
         $viewData = [];
         $idAluno = Auth::user()->getId();
-        $viewData["horas"] = HorasComplementares::where('id_aluno', $idAluno);
+        $viewData["horas"] = HorasComplementares::where('id_aluno', $idAluno)->get();
         $viewData["contagem"] = HorasComplementares::where('id_aluno', $idAluno)->count();
         $viewData["horasNecessarias"] = User::where('users.id', $idAluno)->join('curso', 'users.id_curso', '=', 'curso.id')
                                         ->value('carga_prevista');
@@ -28,12 +29,11 @@ class HorasComplementaresController extends Controller{
     }
 
     public function cadastrarPost(Request $request){
-
         HorasComplementares::validate($request);
 
         $newHoras = $request->only(['name', 'data_atividade', 'carga_horaria', 'informacoes', 'id_categoria']);
         if($request->hasFile('arquivo'))
-            $newHoras['arquivo'] = $this->arquivo($request, $newHoras, $id);
+            $newHoras['arquivo'] = $this->arquivo($request, $newHoras);
         $newHoras['id_aluno'] = Auth::user()->getId();
         HorasComplementares::create($newHoras);
 
@@ -50,10 +50,10 @@ class HorasComplementaresController extends Controller{
     public function editarPut(Request $request, $id){
         HorasComplementares::validate($request);
 
-        $hora = $request->only(['name', 'data_atividade', 'carga_horaria', 'informacoes', 'id_categoria']);
+        $hora = $request->only(['id', 'name', 'data_atividade', 'carga_horaria', 'informacoes', 'id_categoria']);
 
         if($request->hasFile('arquivo'))
-            $hora['arquivo'] = $this->arquivo($request, $hora, $id);
+            $hora['arquivo'] = $this->arquivo($request, $hora);
 
         HorasComplementares::where('id', $id)->update($hora);
 
@@ -65,7 +65,7 @@ class HorasComplementaresController extends Controller{
         return back();
     }
 
-    public function arquivo(Request $request, $hora, $id){
+    public function arquivo(Request $request, $hora){
             $nomeArquivo = $hora['name'].".".$request->file('arquivo')->extension();
 
             Storage::disk('public')->put(
