@@ -29,7 +29,7 @@ class AvaliacaoController extends Controller{
     public function avaliar($idHoras){
         $viewData = [];
 
-        $viewData["hora"] = HorasComplementares::findOrFail($idHoras);
+        $viewData["hora"] = HorasComplementares::whereId($idHoras)->first();
         $viewData["nomeCategoria"] = DB::table('categorias')
         ->join('horas_complementares', 'horas_complementares.id_categoria', '=', 'categorias.id')
         ->where("horas_complementares.id", '=', $idHoras)
@@ -52,10 +52,48 @@ class AvaliacaoController extends Controller{
         // atualizar horas complementares com o id da avaliação
         HorasComplementares::whereIn('id', $request->only('id_horas'))->update(['id_avaliacao' => $id]);
 
-        // pegar o usuario aluno
-        $idAluno = HorasComplementares::where('id', $request->only('id_horas'))->select('id_aluno')->value('id_aluno');
-        $valor = (int) $request->only('carga_horaria');
-        $incrementar = DB::table('users')->where('id', $idAluno)->increment('carga_cumprida', $valor);
+        return view('avaliacao.avaliar')->with("viewData", $viewData);
+    }
+
+    public function avaliarAtividades(Request $request){
+        $viewData = [];
+        $idAvaliador = Auth::user()->getId();
+
+        $viewData["avaliacoes"] = DB::table('avaliacoes')->where('id_avaliador', $idAvaliador)->join('horas_complementares', 'horas_complementares.id', '=', 'avaliacoes.id_horas')->
+                    join('users', 'users.id', '=', 'horas_complementares.id_aluno')->select('horas_complementares.id as id_horas', 'users.photo', 'users.prontuario', 'avaliacoes.feedback', 'avaliacoes.id', 'avaliacoes.id_status', 'horas_complementares.name', 'users.id as id_aluno')->get();
+
+        return view('avaliacao.avaliaratividades')->with("viewData", $viewData);
+    }
+    
+    public function editarAvaliacao(Request $request, $id){
+        $viewData = [];
+
+        $viewData["atividade"] = DB::table('avaliacoes')->where('avaliacoes.id', $id)->join('horas_complementares', 'horas_complementares.id', '=', 'avaliacoes.id_horas')
+        ->join('users', 'users.id', '=', 'horas_complementares.id_aluno')
+        ->join('categorias', 'categorias.id', '=', 'horas_complementares.id_categoria')->
+        select('horas_complementares.arquivo', 'horas_complementares.informacoes', 'categorias.name as name_categoria', 'horas_complementares.name','horas_complementares.id as id_horas', 'users.photo', 'users.prontuario', 'avaliacoes.feedback', 'avaliacoes.id', 'avaliacoes.id_status', 'horas_complementares.name', 'users.id as id_aluno', 'horas_complementares.data_atividade', 'avaliacoes.carga_horaria', 'horas_complementares.carga_horaria as hora_carga')->get()->first();
+
+        return view('avaliacao.editar')->with("viewData", $viewData);
+    }
+
+    public function editarPost(Request $request){
+        $atividade = $request->only(['feedback', 'id_status', 'carga_horaria']);
+
+        Avaliacoes::where('id', $request->id_atividade)->update($atividade);
+
+        return back();
+    }
+
+    public function todasAtividades(){
+        $idAvaliador = Auth::user()->getId();
+        $turmaAvaliador = Auth::user()->getCurso();
+
+        $viewData = [];
+        $viewData["atividades"] = DB::table('horas_complementares')
+        ->join('users', 'users.id', '=', 'horas_complementares.id_aluno')
+        ->where('horas_complementares.id_avaliacao', '=',  null)->select('horas_complementares.data_atividade', 'horas_complementares.informacoes', 'horas_complementares.name', 'horas_complementares.id as id_horas', 'users.prontuario', 'horas_complementares.name', 'users.id as id_aluno')->get();
+        
+        return view('avaliacao.todas')->with("viewData", $viewData);
     }
 }
 ?>

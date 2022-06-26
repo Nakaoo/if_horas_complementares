@@ -25,7 +25,7 @@
                     <div class="row mb-3">
                       <label for="inputText" class="col-sm-2 col-form-label">Atividade</label>
                       <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control" placeholder="Entre com a sua atividade"/>
+                        <input type="text" name="name" value={{old('name')}}class="form-control" placeholder="Entre com a sua atividade"/>
                       </div>
                     </div>
 

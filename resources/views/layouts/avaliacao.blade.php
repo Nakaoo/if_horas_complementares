@@ -38,15 +38,12 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="" alt="" class="rounded-circle">
+            <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->getName() }}</span>
           </a><!-- Perfil -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <li>
-              <a class="dropdown-item d-flex align-items-center" href="perfil_avaliador.html">
-                <i class="bi bi-person"></i>
-                <span>Meu perfil</span>
-              </a>
+            <li>
+              <a role="button" class="nav-link active" href={{route('auth.editar',  ['id'=>Auth::user()->getId()])}}><span>Perfil</span></a>
             </li>
 
             <li>
@@ -73,13 +70,13 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="{{ route('avaliacao.avaliaratividades') }}">
           <i class="bi bi-journal-text"></i>
           <span>Avaliar Atividades</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="">
+        <a class="nav-link collapsed" href="{{ route('avaliacao.todasatividades') }}">
           <i class="bi bi-card-list"></i>
           <span>Atividades avaliadas</span>
         </a>

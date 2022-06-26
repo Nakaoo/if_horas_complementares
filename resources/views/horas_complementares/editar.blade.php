@@ -69,7 +69,7 @@
                     <div class="row mb-3">
                       <label for="inputNumber" class="col-sm-2 col-form-label">Arquivo</label>
                       <div class="col-sm-10">
-                        <a href="{{ asset('/storage/'.$viewData['hora']->getArquivo()) }}"><img src="{{ URL::asset('img/pdf.png') }} " /></a>
+                        <a target="_blank" href="{{ asset('/storage/'.$viewData['hora']->getArquivo()) }}"><img src="{{ URL::asset('img/pdf.png') }} " /></a>
                         <input name="arquivo" type="file" class="form-control" id="arquivo" style="display:none;">
                         <br/>
                         <p>Arquivo: {{$viewData['hora']->getArquivo()}}</p>

@@ -28,13 +28,13 @@
                 <div class="col-12">
                   <label for="email" class="form-label">E-mail</label>
                   <div class="input-group has-validation">
-                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" id="email" required>
+                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                   </div>
                   @error('email')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
-              @enderror
+                  @enderror
                 </div>
 
                 <div class="col-12">

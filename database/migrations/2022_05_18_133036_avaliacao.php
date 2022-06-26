@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('avaliacao', function (BLueprint $table) {
+        Schema::create('avaliacoes', function (BLueprint $table) {
             $table->id();
             $table->string('feedback');
             $table->integer('carga_horaria');
@@ -35,7 +35,7 @@ return new class extends Migration
 
         Schema::table('horas_complementares', function (Blueprint $table) {
             $table->unsignedBigInteger('id_avaliacao')->nullable();
-            $table->foreign('id_avaliacao')->references('id')->on('avaliacao');
+            $table->foreign('id_avaliacao')->references('id')->on('avaliacoes');
         });
 
         DB::table('status')->insert([

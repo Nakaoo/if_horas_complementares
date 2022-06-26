@@ -37,7 +37,8 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+            <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->getName() }}</span>
           </a><!-- Perfil -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
@@ -45,6 +46,9 @@
                     <a role="button" class="nav-link active" onclick="document.getElementById('logout').submit();"><span>Sair</span></a>
                     @csrf
                   </form>
+            </li>
+            <li>
+              <a role="button" class="nav-link active" href={{route('auth.editar',  ['id'=>Auth::user()->getId()])}}><span>Perfil</span></a>
             </li>
           </ul>
         </li>
@@ -68,6 +72,13 @@
         <a class="nav-link collapsed" href="{{ route('horas_complementares.cadastrar') }}">
           <i class="bi bi-card-list"></i>
           <span>Cadastrar horas</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('horas_complementares.avaliados') }}">
+          <i class="bi bi-card-list"></i>
+          <span>Atividades avaliadas</span>
         </a>
       </li>
     </ul>

@@ -23,7 +23,6 @@ return new class extends Migration
 
         Schema::table('users', function (Blueprint $table) {
             $table->string('prontuario');
-            $table->integer('carga_cumprida')->default(0);
             $table->unsignedBigInteger('id_curso');
             $table->string('funcao')->default('aluno');
             $table->foreign('id_curso')->references('id')->on('curso');

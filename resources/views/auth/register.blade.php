@@ -32,13 +32,13 @@
 
                     <div class="col-12">
                       <label for="email" class="form-label">Seu email</label>
-                      <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" required>
+                      <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                      @error('email')
+                    @error('email')
                         <span class="invalid-feedback" role="alert">
-                             <strong>{{ $message }}</strong>
-                         </span>
-                      @enderror
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     </div>
 
                     <div class="col-12">
@@ -61,14 +61,24 @@
 
                     <div class="col-12">
                       <label for="password" class="form-label">Senha</label>
-                      <input type="password" name="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">Por favor, insira sua senha!</div>
+                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                      @error('password')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
                     </div>
 
                     <div class="col-12">
-                      <label for="password-confirm" class="form-label">Confirme sua senha</label>
-                      <input type="password" name="password_confirmation" class="form-control" id="password-confirm" required>
-                      <div class="invalid-feedback">Por favor, insira sua senha!</div>
+                      <label for="password-confirmation" class="form-label">Confirme sua senha</label>
+                      <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
+
+                      @error('password')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
                     </div>
 
                     <div class="col-12">

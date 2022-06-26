@@ -136,6 +136,16 @@ class User extends Authenticatable
         $this->attributes['carga_cumprida'] += $carga_cumprida;
     }
 
+    public function getImagem()
+    {
+        return $this->attributes['photo'];
+    }
+
+    
+    public function setImagem($photo)
+    {
+        $this->attributes['photo'] = $photo;
+    }
 
     // Relacionamento entre horas complementares e usuário
     public function horasComplementares()

@@ -6,7 +6,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="home_avaliador.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -93,8 +93,7 @@
                           <div class="filter-mais">
                             <a class="icon-mais" href="#" data-bs-toggle="dropdown"><i class="bi bi-search"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                              <li><a class="dropdown-item" href="">Avaliar</a></li>
-                              <li><a class="dropdown-item" href="">Visualizar aluno</a></li>
+                              <li><a class="dropdown-item" href="{{route('avaliacao.avaliar', ['id'=>$hora->getId()])}}">Avaliar</a></li>
                             </ul>
                           </div>
                         </td>

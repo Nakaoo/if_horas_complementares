@@ -9,16 +9,21 @@ use App\Models\Avaliacoes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HorasComplementaresController extends Controller{
     public function dashboard(){
         $viewData = [];
         $idAluno = Auth::user()->getId();
-        $viewData["horas"] = HorasComplementares::where('id_aluno', $idAluno)->get();
+
+        $viewData["horas"] = HorasComplementares::where('id_aluno', $idAluno)->where('id_avaliacao', '=', null)->get();
         $viewData["contagem"] = HorasComplementares::where('id_aluno', $idAluno)->count();
         $viewData["horasNecessarias"] = User::where('users.id', $idAluno)->join('curso', 'users.id_curso', '=', 'curso.id')
                                         ->value('carga_prevista');
-        $viewData["carga_cumprida"] = User::where('id', $idAluno)->value('carga_cumprida');
+        $viewData["carga_cumprida"] = DB::table('avaliacoes')->join('horas_complementares', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')
+                                     ->join('users', 'users.id', '=', 'horas_complementares.id_aluno')->where('avaliacoes.id_status', '=', '2')->sum('avaliacoes.carga_horaria');
+        $viewData["avaliadas"] = HorasComplementares::where('id_aluno', $idAluno)->join('avaliacoes', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')->take(5)->get();
+
         return view('horas_complementares.dashboard')->with("viewData", $viewData);
     }
 
@@ -63,6 +68,28 @@ class HorasComplementaresController extends Controller{
     public function deletar($id){
         HorasComplementares::destroy($id);
         return back();
+    }
+
+    public function avaliados(){
+        $idAluno = Auth::user()->getId();
+
+        $viewData[] = [];
+        $viewData["horas"] = HorasComplementares::where('id_aluno', $idAluno)->join('avaliacoes', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')
+                                                  ->join('users', 'avaliacoes.id_avaliador', '=', 'users.id')
+                                                  ->select('horas_complementares.id', 'horas_complementares.name', 'horas_complementares.informacoes', 'users.photo', 'horas_complementares.id_avaliacao', 'avaliacoes.feedback', 'avaliacoes.id_status')->get();
+
+        return view('horas_complementares.avaliados')->with("viewData", $viewData);
+    }
+
+
+    public function feedback($id){
+        $viewData[] = [];
+
+        $viewData["hora"] = HorasComplementares::where('horas_complementares.id', $id)->join('avaliacoes', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')
+                                                ->join('users', 'avaliacoes.id_avaliador', '=', 'users.id')
+                                                ->select('horas_complementares.id', 'horas_complementares.name', 'horas_complementares.informacoes', 'users.photo', 'horas_complementares.id_avaliacao', 'avaliacoes.id_status')->first();
+
+        return view('horas_complementares.feedback')->with("viewData", $viewData);
     }
 
     public function arquivo(Request $request, $hora){
