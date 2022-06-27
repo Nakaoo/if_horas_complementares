@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
   <!-- CSS  -->
-  <link href="{{ secure_asset('/css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -72,13 +72,13 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('avaliacao.avaliaratividades') }}">
           <i class="bi bi-journal-text"></i>
-          <span>Avaliar Atividades</span>
+          <span>Atividades avaliadas</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('avaliacao.todasatividades') }}">
           <i class="bi bi-card-list"></i>
-          <span>Atividades avaliadas</span>
+          <span>Atividades pendentes</span>
         </a>
       </li>
 

@@ -65,7 +65,7 @@
                                                             <a class="icon-mais" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-search"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                <li><a class="dropdown-item" href="{{ route('avaliacao.editar', ['id'=>$avaliacoes->id]) }}">Editar avaliação</a></li>
+                                                                <li><a class="dropdown-item" href="{{route('avaliacao.avaliar', ['id'=>$avaliacoes->id])}}">Avaliar</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>

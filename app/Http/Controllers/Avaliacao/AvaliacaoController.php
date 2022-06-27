@@ -52,7 +52,7 @@ class AvaliacaoController extends Controller{
         // atualizar horas complementares com o id da avaliação
         HorasComplementares::whereIn('id', $request->only('id_horas'))->update(['id_avaliacao' => $id]);
 
-        return view('avaliacao.avaliar')->with("viewData", $viewData);
+        return back();
     }
 
     public function avaliarAtividades(Request $request){
@@ -62,6 +62,7 @@ class AvaliacaoController extends Controller{
         $viewData["avaliacoes"] = DB::table('avaliacoes')->where('id_avaliador', $idAvaliador)->join('horas_complementares', 'horas_complementares.id', '=', 'avaliacoes.id_horas')->
                     join('users', 'users.id', '=', 'horas_complementares.id_aluno')->select('horas_complementares.id as id_horas', 'users.photo', 'users.prontuario', 'avaliacoes.feedback', 'avaliacoes.id', 'avaliacoes.id_status', 'horas_complementares.name', 'users.id as id_aluno')->get();
 
+        
         return view('avaliacao.avaliaratividades')->with("viewData", $viewData);
     }
     
