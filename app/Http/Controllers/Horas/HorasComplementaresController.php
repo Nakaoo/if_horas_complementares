@@ -95,7 +95,7 @@ class HorasComplementaresController extends Controller{
     public function arquivo(Request $request, $hora){
             $nomeArquivo = $hora['name'].".".$request->file('arquivo')->extension();
 
-            Storage::disk('public')->put(
+            Storage::disk('storage')->put(
                 $nomeArquivo,
                 file_get_contents($request->file('arquivo')->getRealPath())
             );
