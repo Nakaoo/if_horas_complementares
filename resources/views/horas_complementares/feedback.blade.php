@@ -30,7 +30,7 @@
                                 <div class="row mb-3">
                                     <label for="inputPassword" class="col-sm-2 col-form-label">Feedback:</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" style="height: 100px" value="{{$viewData["hora"]->feedback}}" disabled></textarea>
+                                        <textarea class="form-control" style="height: 100px" disabled>{{$viewData["hora"]->feedback}}</textarea>
                                     </div>
                                 </div>
 
@@ -42,6 +42,16 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Arquivo</label>
+                                    <div class="col-sm-10">
+                                      <a target="_blank" href="{{ asset('/storage/'.$viewData['hora']->arquivo) }}"><img src="{{ URL::asset('img/pdf.png') }} " /></a>
+                                      <input name="arquivo" disabled type="file" class="form-control" id="arquivo" style="display:none;">
+                                      <br/>
+                                      <p>Arquivo: {{$viewData['hora']->getArquivo()}}</p>
+                                    </div>
+                                  </div>
+                                  
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Status:</label>
                                     <div class="col-sm-10">

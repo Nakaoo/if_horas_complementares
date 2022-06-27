@@ -21,7 +21,7 @@ class HorasComplementaresController extends Controller{
         $viewData["horasNecessarias"] = User::where('users.id', $idAluno)->join('curso', 'users.id_curso', '=', 'curso.id')
                                         ->value('carga_prevista');
         $viewData["carga_cumprida"] = DB::table('avaliacoes')->join('horas_complementares', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')
-                                     ->join('users', 'users.id', '=', 'horas_complementares.id_aluno')->where('avaliacoes.id_status', '=', '2')->sum('avaliacoes.carga_horaria');
+                                     ->join('users', 'users.id', '=', 'horas_complementares.id_aluno')->where('avaliacoes.id_status', '=', '2')->where('horas_complementares.id_aluno', $idAluno)->sum('avaliacoes.carga_horaria');
         $viewData["avaliadas"] = HorasComplementares::where('id_aluno', $idAluno)->join('avaliacoes', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')->take(5)->get();
 
         return view('horas_complementares.dashboard')->with("viewData", $viewData);
@@ -87,7 +87,7 @@ class HorasComplementaresController extends Controller{
 
         $viewData["hora"] = HorasComplementares::where('horas_complementares.id', $id)->join('avaliacoes', 'horas_complementares.id_avaliacao', '=', 'avaliacoes.id')
                                                 ->join('users', 'avaliacoes.id_avaliador', '=', 'users.id')
-                                                ->select('horas_complementares.id', 'horas_complementares.name', 'horas_complementares.informacoes', 'users.photo', 'horas_complementares.id_avaliacao', 'avaliacoes.id_status')->first();
+                                                ->select('horas_complementares.id', 'horas_complementares.name', 'horas_complementares.arquivo', 'horas_complementares.informacoes', 'users.photo', 'horas_complementares.id_avaliacao', 'avaliacoes.carga_horaria', 'avaliacoes.feedback', 'avaliacoes.id_status')->first();
 
         return view('horas_complementares.feedback')->with("viewData", $viewData);
     }

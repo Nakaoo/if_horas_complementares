@@ -55,7 +55,7 @@
                 <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Descrição da Atividade:</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px" placeholder="Trabalho para obter..." disabled ></textarea>
+                    <textarea class="form-control" style="height: 100px" disabled >{{$viewData['hora']->informacoes}}</textarea>
                   </div>
                 </div>
 

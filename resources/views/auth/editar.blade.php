@@ -19,7 +19,11 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
+              @if(Auth::user()->getImagem() == "" || Auth::user()->getImagem() == "")
+              <img src="{{ URL::asset('img/defaultprofile.png') }}" alt="Profile" class="rounded-circle">
+              @else
               <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="Profile" class="rounded-circle">
+              @endif
               <h2>{{Auth::user()->getName()}}</h2>
               @if(Auth::user()->funcao == "avaliador")
               <h3>Avaliador</h3>
@@ -83,7 +87,11 @@
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagem de perfil</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="Profile">
+                        @if(Auth::user()->getImagem() == "" || Auth::user()->getImagem() == "")
+                        <img src="{{ URL::asset('img/defaultprofile.png') }}" alt="Profile" class="rounded-circle">
+                        @else
+                        <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="Profile" class="rounded-circle">
+                        @endif
                         <div class="pt-2">
                           <div id="teste">
                           <label class="btn btn-primary btn-sm"  title="Atualizar a foto de perfil"><input class="inputfile" name="photo" type="file"/><i class="bi bi-upload"></i></label>
@@ -97,15 +105,12 @@
                       <button type="submit" class="btn btn-success">Salvar alterações</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
-
                   <form method="POST" action="{{route ('auth.deletarFoto', ['id'=> Auth::user()->getId()])}}}}" enctype="multipart/form-data">
                     @method("PUT")
                     @csrf
                     <button type="submit" class="btn btn-danger btn-sm" title="Remover a foto de perfil"><i class="bi bi-trash"></i></a>
                     </form>
-
                 </div>
-
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->

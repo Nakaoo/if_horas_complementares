@@ -58,7 +58,7 @@
                   <button class="btn btn-success w-100" type="submit">Login</button>
                 </div>
                 <div class="col-12">
-                  <p class="small mb-0">Esqueceu sua senha? <a href="">Clique aqui</a></p>
+                  <p class="small mb-0">Esqueceu sua senha? <a href="{{route('password.request')}}">Clique aqui</a></p>
                 </div>
               </form>
             </div>

@@ -26,7 +26,7 @@
                                             <i class="bi bi-info-circle text-primary"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{ $viewData['horasNecessarias'] }}
+                                            <h6>{{ $viewData['horasNecessarias'] }} hora(s)</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                             <i class="bi bi-check-circle text-success"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{ $viewData['carga_cumprida'] }}
+                                            <h6> {{ $viewData['carga_cumprida'] }} hora(s)</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                             <i class="bi bi-exclamation-circle text-warning"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $viewData['contagem'] }}</h6>
+                                            <h6>{{ $viewData['contagem'] }} atividade(s)</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                             <div class="card recent-sales overflow-auto">
                                 <div class="card-body">
                                     <h5 class="card-title">Minhas atividades pendentes: </h5>
-                                    <table class="table table-borderless datatable">
+                                    <table id="felicidade" class="table table-borderless datatable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Data</th>
@@ -127,18 +127,19 @@
                                             </div>
                                         </div>
                                     </div>
-                    @elseif($avaliacao->id_status == '3')
-                        <div class="activity">
-                            <div class="activity-item d-flex">
-                                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                <div class="activity-content">
-                                    <a href="#" class="fw-bold text-dark">{{ $avaliacao->name }}</a> Rejeitada
-                                </div>
-                            </div>
+                                @elseif($avaliacao->id_status == '3')
+                                    <div class="activity">
+                                        <div class="activity-item d-flex">
+                                            <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                            <div class="activity-content">
+                                                <a href="#" class="fw-bold text-dark">{{ $avaliacao->name }}</a>
+                                                Rejeitada
+                                            </div>
+                                        </div>
+                                    </div>
                         </div>
-                    </div>
-                    @endif
-                    @endforeach
+                        @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -160,4 +161,5 @@
 
 
         </div>
+
     @endsection

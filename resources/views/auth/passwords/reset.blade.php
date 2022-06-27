@@ -25,10 +25,9 @@
                                 <input type="hidden" name="token" value="{{ $token }}">
                                 @csrf
 
-                                <div class="row mb-3">
+                                <div class="col-12">
                                     <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
         
-                                    <div class="col-md-6">
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
         
                                         @error('email')
@@ -36,7 +35,6 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
                                 </div>
                                 
                                 <div class="col-12">

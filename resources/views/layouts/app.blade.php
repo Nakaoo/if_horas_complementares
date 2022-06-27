@@ -17,6 +17,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
     crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
     <!-- CSS  -->
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 </head>
@@ -37,7 +41,11 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="" class="rounded-circle">
+            @if(Auth::user()->getImagem() == "" || Auth::user()->getImagem() == "")
+            <img src="{{ URL::asset('img/defaultprofile.png') }}" alt="Profile" class="rounded-circle">
+            @else
+            <img src="{{ asset('/storage/'.Auth::user()->getImagem()) }}" alt="Profile" class="rounded-circle">
+            @endif
             <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->getName() }}</span>
           </a><!-- Perfil -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
