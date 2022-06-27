@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
   <!-- CSS  -->
-  <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
+  <link href="{{ secure_asset('/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
